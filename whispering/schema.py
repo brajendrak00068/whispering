@@ -49,8 +49,7 @@ class Context(BaseModel, arbitrary_types_allowed=True):
     vad_threshold: float
     max_nospeech_skip: int
     mel_frame_min_num: int = Field(N_FRAMES, ge=1, le=N_FRAMES)
-
-    data_type: str = "float32"
+    data_type: Optional[str] = "float32"
 
 
 class ParsedChunk(BaseModel):

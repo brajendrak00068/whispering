@@ -1,5 +1,9 @@
 
 SHELL=/bin/bash
+AWS_ACCOUNT_ID = 718762496685
+APP_NAME = whisper
+REGION = ap-south-1
+NAMESPACE = sariska
 
 all: lint_node lint_python
 
@@ -39,3 +43,18 @@ lint_node: markdownlint pyright
 style:
 	find $(TARGET_DIRS) | grep '\.py$$' | xargs black
 	find $(TARGET_DIRS) | grep '\.py$$' | xargs isort
+
+.PHONY: help
+
+build-release:
+			docker build -t ${AWS_ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/${NAMESPACE}/$(APP_NAME):latest .
+
+
+push-release:
+			docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/${NAMESPACE}/$(APP_NAME):latest
+
+
+deploy-release:
+			kubectl kustomize ./k8s | kubectl apply -k ./k8s
+
+deploy: build-release push-release deploy-release
