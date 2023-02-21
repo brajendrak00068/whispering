@@ -44,28 +44,3 @@ typeCheckingMode = "basic"
 exclude = [".venv", "**/node_modules", "**/__pycache__",]
 reportPrivateImportUsage = "information"
 reportUnusedVariable="warning"
-
-
-[tool.poetry.group.gpu]
-optional = true
-
-[tool.poetry.group.gpu.dependencies]
-torch = { version = "1.12.1+cu116", source = "torchcu116" }
-
-[tool.poetry.group.cpu]
-optional = true
-
-[tool.poetry.group.cpu.dependencies]
-torch = { version = "1.12.1+cpu", source = "torchcpu" }
-
-[[tool.poetry.source]]
-name = "torchcpu"
-url = "https://download.pytorch.org/whl/cpu"
-default = false
-secondary = true
-
-[[tool.poetry.source]]
-name = "torchcu116"
-url = "https://download.pytorch.org/whl/cu116"
-default = false
-secondary = true
