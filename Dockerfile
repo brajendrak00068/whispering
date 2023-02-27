@@ -17,6 +17,6 @@ WORKDIR /app
 COPY . /app
 
 RUN poetry config virtualenvs.in-project true
-RUN poetry install --all-extras
+RUN poetry install
 
 ENTRYPOINT ["whispering", "--language", "en", "--model", "tiny", "--host", "0.0.0.0", "--port", "8000"]
